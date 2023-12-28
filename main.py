@@ -86,7 +86,8 @@ def format_code(request: Request,code: str):
         # Prepare response
         response_data = {"formatted_code": formatted_code}
 
-        return response_data
+        json_compatible_item_data = jsonable_encoder(response_data)
+        return JSONResponse(content=json_compatible_item_data)
 
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
@@ -254,23 +255,23 @@ def extract_code_from_file(file: UploadFile) -> str:
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error extracting code from file: {str(e)}")
 
-@app.post("/upload")
-async def upload_files(request: Request, file1: UploadFile = File(...), file2: UploadFile = File(...)):
-    try:
-        # Extract code from the uploaded files
-        code1 = extract_code_from_file(file1)
-        code2 = extract_code_from_file(file2)
+# @app.post("/upload")
+# async def upload_files(request: Request, file1: UploadFile = File(...), file2: UploadFile = File(...)):
+#     try:
+#         # Extract code from the uploaded files
+#         code1 = extract_code_from_file(file1)
+#         code2 = extract_code_from_file(file2)
 
-        # Prepare response
-        response_data = {
-            "code1": code1,
-            "code2": code2
-        }
+#         # Prepare response
+#         response_data = {
+#             "code1": code1,
+#             "code2": code2
+#         }
 
-        return response_data
+#         return response_data
 
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+#     except Exception as e:
+#         raise HTTPException(status_code=500, detail=str(e))
 
 if __name__ == "__main__":
     uvicorn.run("main:app", host="0.0.0.0", port=8080)
