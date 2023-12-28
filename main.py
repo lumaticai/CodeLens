@@ -36,7 +36,7 @@ async def root(request: Request):
     return JSONResponse(content=json_compatible_item_data)
 
 @app.post("/compare")
-@limiter.limit("10/day")
+@limiter.limit("50/day")
 async def compare_code( request: Request, code1: str, code2: str):
     try:
         import difflib
