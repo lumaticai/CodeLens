@@ -273,4 +273,4 @@ async def upload_files(request: Request, file1: UploadFile = File(...), file2: U
         raise HTTPException(status_code=500, detail=str(e))
 
 if __name__ == "__main__":
-    uvicorn.run("main:app", host="0.0.0.0", port=8080, reload=True)
+    uvicorn.run("main:app", host="0.0.0.0", port=8080)
