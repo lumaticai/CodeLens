@@ -145,7 +145,7 @@ def save_code_pair(
         saved_code_pairs.append(new_code_pair)
 
         # Return success response
-        response_data = {"id": {pair_id}}
+        response_data = {"id": pair_id}
 
         # Update browser storage with the new data
         serialized_code_pairs = [pair.to_dict() for pair in saved_code_pairs]
