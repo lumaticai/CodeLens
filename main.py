@@ -12,7 +12,7 @@ from slowapi.errors import RateLimitExceeded
 
 limiter = Limiter(key_func=get_remote_address, headers_enabled=True, in_memory_fallback_enabled=True)
 
-app = FastAPI(ocs_url=None, redoc_url=None,)
+app = FastAPI(docs_url=None, redoc_url=None,)
 
 app.add_middleware(
     CORSMiddleware,
@@ -70,7 +70,8 @@ async def compare_code( request: Request, code1: str, code2: str):
             "diff_result": diff_result,  # Include the unified diff result in the response
         }
 
-        return response_data
+        json_compatible_item_data = jsonable_encoder(response_data)
+        return JSONResponse(content=json_compatible_item_data)
 
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
