@@ -26,7 +26,7 @@ app.state.limiter = limiter
 app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
 
 @app.get("/")
-@limiter.limit("5/minute")
+@limiter.limit("5000/minute")
 async def root(request: Request):
     response_data = {"status": "Server is alive ❤ ( ´･･)ﾉ(._.`)",
             "time": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
